@@ -10,11 +10,11 @@ let testCase: [String] = [
 
 let testSnakeCase: [String] = [
     "Donald_A",
-    "donald_a_e_kim",
-    "97214-123A84_AbBcde_eKa",
+    "donald_a_e_kIm",
+    "___97214-123A84_AbBcde_eKa",
     "aAbBCc______edfe",
     "aAbBCc____edfe",
-    "______aAbBCc____edfe",
+    "______aAbBCc____edfe____",
     "_abcd_def_ef_",
     "abd_doi_oij.**&&&"
 ]
