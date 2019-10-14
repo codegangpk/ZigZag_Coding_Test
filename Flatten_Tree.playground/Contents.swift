@@ -1,13 +1,12 @@
 import Foundation
 
-
 extension String: LocalizedError {
     public var errorDescription: String? {
         return self
     }
 }
 
-func loadDictionaryData() throws -> [String: [String: [String: Any]]] {
+func loadJSONDictionary() throws -> [String: [String: [String: Any]]] {
     guard let currentPath = Bundle.main.path(forResource: "categories", ofType: ".json") else {
         throw "Couldn't find path"
     }
@@ -46,15 +45,15 @@ func flattenTreeAray(from dictionary: [String: [String: [String: Any]]]) -> [Str
 }
 
 func runTest() throws {
-    let dictionary: [String: [String: [String: Any]]]
+    let jsonDictionary: [String: [String: [String: Any]]]
     
     do {
-        dictionary = try loadDictionaryData()
+        jsonDictionary = try loadJSONDictionary()
     } catch {
         throw error.localizedDescription
     }
     
-    let flattenedTreeArray = flattenTreeAray(from: dictionary)
+    let flattenedTreeArray = flattenTreeAray(from: jsonDictionary)
     print(flattenedTreeArray)
 }
 
