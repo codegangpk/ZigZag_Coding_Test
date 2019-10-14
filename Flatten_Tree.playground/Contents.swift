@@ -1,14 +1,13 @@
 import Foundation
 
-
 extension String: LocalizedError {
     public var errorDescription: String? {
         return self
     }
 }
 
-func loadDictionaryData() throws -> [String: [String: [String: Any]]] {
-    guard let currentPath = Bundle.main.path(forResource: "categories", ofType: ".json") else {
+func loadJSONDictionary(fileName: String) throws -> [String: [String: [String: Any]]] {
+    guard let currentPath = Bundle.main.path(forResource: fileName, ofType: ".json") else {
         throw "Couldn't find path"
     }
     let url = URL(fileURLWithPath: currentPath)
@@ -46,16 +45,26 @@ func flattenTreeAray(from dictionary: [String: [String: [String: Any]]]) -> [Str
 }
 
 func runTest() throws {
-    let dictionary: [String: [String: [String: Any]]]
+    var jsonDictionary: [String: [String: [String: Any]]]
     
     do {
-        dictionary = try loadDictionaryData()
-    } catch {
-        throw error.localizedDescription
-    }
-    
-    let flattenedTreeArray = flattenTreeAray(from: dictionary)
-    print(flattenedTreeArray)
+        jsonDictionary = try loadJSONDictionary(fileName: "categories")
+        let flattenedTreeArray1 = flattenTreeAray(from: jsonDictionary)
+        print(flattenedTreeArray1)
+        print("\n\n\n")
+        
+        jsonDictionary = try loadJSONDictionary(fileName: "emptyKeyCategories")
+        let flattenedTreeArray2 = flattenTreeAray(from: jsonDictionary)
+        print(flattenedTreeArray2)
+        print("\n\n\n")
+        
+        jsonDictionary = try loadJSONDictionary(fileName: "corruptedJSON")
+        let flattenedTreeArray3 = flattenTreeAray(from: jsonDictionary)
+        print(flattenedTreeArray3)
+        print("\n\n\n")
+        } catch {
+            throw error.localizedDescription
+        }
 }
 
 do {
